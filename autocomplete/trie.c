@@ -61,9 +61,9 @@ int autocomplete(char *word, trienode *trie){
     char * cur = word;
     while(*cur){
         i = *cur - 'a';
-	if(!trie->children[i]){
-            return 0;
-        }
+	if((i >= NUM_CHAR) || (i < 0) || (!trie->children[i]))
+	    return 0;
+
        trie = trie->children[i];
        cur++;
     }
@@ -104,9 +104,8 @@ int find(char * word, trienode * trie){
     trienode *cur = trie;
      while(*word){
         i = *word - 'a';
-        if (!cur->children[i]){
+	if((i >= NUM_CHAR) || (i < 0) || (!trie->children[i]))
             return 0;
-        }
         cur = cur->children[i];
         word++;
      }
